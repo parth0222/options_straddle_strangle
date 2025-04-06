@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ChampagnePapi LLC – Options Backtester</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      max-width: 650px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .header span {
+      color: #888;
+      font-size: 14px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .results {
+      background: #f1f1f1;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 8px;
+      border-left: 4px solid #007bff;
+    }
+
+    .results h2 {
+      margin-top: 0;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>ChampagnePapi LLC</h1>
+      <span>Options Strategy Backtester</span>
+    </div>
+
+    <form method="post">
+      <label for="ticker">Stock Ticker:</label>
+      <input type="text" name="ticker" required>
+
+      <label for="start_date">Start Date (YYYY-MM-DD):</label>
+      <input type="text" name="start_date" required>
+
+      <label for="end_date">End Date (YYYY-MM-DD):</label>
+      <input type="text" name="end_date" required>
+
+      <label for="strategy">Strategy:</label>
+      <select name="strategy">
+        <option value="straddle">Straddle</option>
+        <option value="strangle">Strangle</option>
+      </select>
+
+      <input type="submit" value="Run Backtest">
+    </form>
+
+    {% if result %}
+    <div class="results">
+      <h2>Backtest Results – {{ result.strategy }}</h2>
+      <p><strong>Final Capital:</strong> {{ result.final_capital }}</p>
+      <p><strong>Total Profit:</strong> {{ result.total_profit }}</p>
+      <p><strong>Number of Trades:</strong> {{ result.num_trades }}</p>
+
+      {% if result.download_ready %}
+        <form action="/download" method="get">
+          <button type="submit">📥 Download Excel</button>
+        </form>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="footer">
+      &copy; 2025 ChampagnePapi LLC – Built for data-driven traders 🍾📈
+    </div>
+  </div>
+</body>
+</html>
