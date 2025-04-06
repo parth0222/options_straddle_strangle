@@ -2,3 +2,4 @@ Flask
 pandas
 xlsxwriter
 alpaca-trade-api
+gunicorn
